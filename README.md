@@ -23,6 +23,19 @@ Diagram: <TODO>
 
 ---
 
+## High Level Design
+
+```
+Frontend (POS) --> API Gateway --> Backend Services
+                                   |
+                                   v
+                            Blockchain Layer
+                                   |
+                             Smart Contracts
+                                   |
+                              Distributed Ledger
+```
+
 ## Prerequisites
 1. **Hyperledger Fabric** setup:
    - Minimum configuration with one peer and one orderer.
