@@ -36,6 +36,27 @@ Frontend (POS) --> API Gateway --> Backend Services
                               Distributed Ledger
 ```
 
+## Implementation
+
+### Blockchain Smart Contract
+
+```node
+async scanBarcode(ctx, barcodeId) {
+    const barcodeAsBytes = await ctx.stub.getState(barcodeId);
+    if (!barcodeAsBytes || barcodeAsBytes.length === 0) {
+        throw new Error(`Barcode ${barcodeId} does not exist.`);
+    }
+
+    const barcode = JSON.parse(barcodeAsBytes.toString());
+    if (barcode.scanned) {
+        throw new Error(`Barcode ${barcodeId} has already been scanned.`);
+    }
+
+    barcode.scanned = true;
+    await ctx.stub.putState(barcodeId, Buffer.from(JSON.stringify(barcode)));
+}
+```
+
 ## Prerequisites
 1. **Hyperledger Fabric** setup:
    - Minimum configuration with one peer and one orderer.
